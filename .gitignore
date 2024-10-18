@@ -1,0 +1,44 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.pid
+*.hprof
+
+# Project Files
+/.idea/
+/*.iml
+/.gradle/
+/build/
+/target/
+
+# Maven
+/.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+/gradle-wrapper.jar
+/gradle-wrapper.properties
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
