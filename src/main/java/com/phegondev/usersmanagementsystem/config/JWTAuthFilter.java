@@ -2,7 +2,7 @@ package com.phegondev.usersmanagementsystem.config;
 
 
 import com.phegondev.usersmanagementsystem.service.JWTUtils;
-import com.phegondev.usersmanagementsystem.service.OurUserDetailsService;
+import com.phegondev.usersmanagementsystem.service.UserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     private JWTUtils jwtUtils;
 
     @Autowired
-    private OurUserDetailsService ourUserDetailsService;
+    private UserDetailsService ourUserDetailsService;
 
 
     @Override

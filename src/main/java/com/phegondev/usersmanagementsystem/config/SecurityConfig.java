@@ -1,7 +1,7 @@
 package com.phegondev.usersmanagementsystem.config;
 
 
-import com.phegondev.usersmanagementsystem.service.OurUserDetailsService;
+import com.phegondev.usersmanagementsystem.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private OurUserDetailsService ourUserDetailsService;
+    private UserDetailsService ourUserDetailsService;
     @Autowired
     private JWTAuthFilter jwtAuthFilter;
 

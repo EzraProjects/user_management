@@ -1,13 +1,17 @@
 package com.phegondev.usersmanagementsystem.controller;
 
-import com.phegondev.usersmanagementsystem.dto.ReqRes;
-import com.phegondev.usersmanagementsystem.entity.OurUsers;
+import com.phegondev.usersmanagementsystem.dto.RegistrationRequestDTO;
+import com.phegondev.usersmanagementsystem.dto.UserResponseDTO;
 import com.phegondev.usersmanagementsystem.service.UsersManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserManagementController {
@@ -15,48 +19,48 @@ public class UserManagementController {
     private UsersManagementService usersManagementService;
 
     @PostMapping("/auth/register")
-    public ResponseEntity<ReqRes> regeister(@RequestBody ReqRes reg){
-        return ResponseEntity.ok(usersManagementService.register(reg));
+    public ResponseEntity<UserResponseDTO> regeister(@Validated @RequestBody RegistrationRequestDTO userRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(usersManagementService.register(userRequestDTO));
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<ReqRes> login(@RequestBody ReqRes req){
+    public ResponseEntity<UserResponseDTO> login(@RequestBody RegistrationRequestDTO req){
         return ResponseEntity.ok(usersManagementService.login(req));
     }
 
     @PostMapping("/auth/refresh")
-    public ResponseEntity<ReqRes> refreshToken(@RequestBody ReqRes req){
+    public ResponseEntity<UserResponseDTO> refreshToken(@RequestBody RegistrationRequestDTO req){
         return ResponseEntity.ok(usersManagementService.refreshToken(req));
     }
 
     @GetMapping("/admin/get-all-users")
-    public ResponseEntity<ReqRes> getAllUsers(){
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         return ResponseEntity.ok(usersManagementService.getAllUsers());
 
     }
 
     @GetMapping("/admin/get-users/{userId}")
-    public ResponseEntity<ReqRes> getUSerByID(@PathVariable Integer userId){
-        return ResponseEntity.ok(usersManagementService.getUsersById(userId));
+    public ResponseEntity<UserResponseDTO> getUSerByID(@PathVariable Integer userId){
+        return ResponseEntity.ok(usersManagementService.getUserById(userId));
 
     }
 
     @PutMapping("/admin/update/{userId}")
-    public ResponseEntity<ReqRes> updateUser(@PathVariable Integer userId, @RequestBody OurUsers reqres){
-        return ResponseEntity.ok(usersManagementService.updateUser(userId, reqres));
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Integer userId, @RequestBody RegistrationRequestDTO req){
+        return ResponseEntity.ok(usersManagementService.updateUser(userId, req.toUser()));
     }
 
     @GetMapping("/adminuser/get-profile")
-    public ResponseEntity<ReqRes> getMyProfile(){
+    public ResponseEntity<UserResponseDTO> getMyProfile(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        ReqRes response = usersManagementService.getMyInfo(email);
-        return  ResponseEntity.status(response.getStatusCode()).body(response);
+        UserResponseDTO response = usersManagementService.getMyInfo(email);
+        return  ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/admin/delete/{userId}")
-    public ResponseEntity<ReqRes> deleteUSer(@PathVariable Integer userId){
-        return ResponseEntity.ok(usersManagementService.deleteUser(userId));
+    public ResponseEntity<Integer> deleteUSer(@PathVariable Integer userId){
+        return ResponseEntity.ok(userId);
     }
 
 
