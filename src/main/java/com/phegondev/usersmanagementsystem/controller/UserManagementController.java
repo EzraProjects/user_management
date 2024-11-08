@@ -1,5 +1,6 @@
 package com.phegondev.usersmanagementsystem.controller;
 
+import com.phegondev.usersmanagementsystem.dto.LoginDTO;
 import com.phegondev.usersmanagementsystem.dto.RegistrationRequestDTO;
 import com.phegondev.usersmanagementsystem.dto.UserResponseDTO;
 import com.phegondev.usersmanagementsystem.service.UsersManagementService;
@@ -24,7 +25,7 @@ public class UserManagementController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody RegistrationRequestDTO req){
+    public ResponseEntity<UserResponseDTO> login(@RequestBody LoginDTO req){
         return ResponseEntity.ok(usersManagementService.login(req));
     }
 
@@ -53,13 +54,14 @@ public class UserManagementController {
     @GetMapping("/adminuser/get-profile")
     public ResponseEntity<UserResponseDTO> getMyProfile(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        UserResponseDTO response = usersManagementService.getMyInfo(email);
+        String username = authentication.getName();
+        UserResponseDTO response = usersManagementService.getMyInfo(username);
         return  ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/admin/delete/{userId}")
     public ResponseEntity<Integer> deleteUSer(@PathVariable Integer userId){
+        usersManagementService.deleteUser(userId);
         return ResponseEntity.ok(userId);
     }
 

@@ -1,5 +1,6 @@
 package com.phegondev.usersmanagementsystem.service;
 
+import com.phegondev.usersmanagementsystem.dto.LoginDTO;
 import com.phegondev.usersmanagementsystem.dto.RegistrationRequestDTO;
 import com.phegondev.usersmanagementsystem.dto.UserResponseDTO;
 import com.phegondev.usersmanagementsystem.entity.User;
@@ -43,7 +44,7 @@ public class UsersManagementService {
         }
         }
 
-    public UserResponseDTO login(RegistrationRequestDTO loginRequest){
+    public UserResponseDTO login(LoginDTO loginRequest){
         UserResponseDTO response = new UserResponseDTO();
             authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
@@ -58,10 +59,6 @@ public class UsersManagementService {
 
         return response;
     }
-
-
-
-
 
     public UserResponseDTO refreshToken(RegistrationRequestDTO refreshTokenReqiest){
         UserResponseDTO response = new UserResponseDTO();

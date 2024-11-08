@@ -9,7 +9,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserResponseDTO {
-
+    private Integer id;
     private String name;
     private String username;
     private String email;
@@ -20,6 +20,7 @@ public class UserResponseDTO {
 
     public static UserResponseDTO from(User user) {
         UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setId(user.getId());
         userResponseDTO.setName(user.getName());
         userResponseDTO.setUsername(user.getUsername());
         userResponseDTO.setEmail(user.getEmail());
